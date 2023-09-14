@@ -22,7 +22,7 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public void placeOrder(OrderRequest orderRequest) {
         System.out.println("Order creating...");
@@ -42,8 +42,8 @@ public class OrderService {
 
         System.out.println("sending request to inventory....");
         // call inventory service and check and place the order
-        InventoryResponse[] inventoryResponseArray = webClient.get()
-                                  .uri("http://localhost:8082/api/inventory", uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes)
+        InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
+                                  .uri("http://inventory-service/api/inventory", uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes)
                                             .build())
                                             .retrieve()
                                             .bodyToMono(InventoryResponse[].class)
