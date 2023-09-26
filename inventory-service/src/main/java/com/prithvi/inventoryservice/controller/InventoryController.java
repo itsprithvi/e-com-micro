@@ -20,7 +20,7 @@ public class InventoryController {
     // http://localhost:8082/api/inventory?skuCode=iphone-15&skuCode=iphone15-red // this is the list of sku
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<InventoryResponse> isInStock(@RequestParam List<String> skuCode) {
+    public List<InventoryResponse> isInStock(@RequestParam List<String> skuCode) throws InterruptedException {
         System.out.println("This inventory method is called...");
         return inventoryService.isInStock(skuCode);
     }
